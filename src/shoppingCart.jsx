@@ -4,10 +4,12 @@ import {
   Divider,
   Text,
   HStack,
+  InputGroup,
   Input,
   Button,
   Box,
   useNumberInput,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { DeleteIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { useEffect, useMemo, useState } from "react";
@@ -78,6 +80,51 @@ const Item = (item) => {
   );
 };
 
+const Promo = () => {
+  const [editing, setEditing] = useState(false);
+
+  const handleClick = () => {};
+
+  return (
+    <Box width="84%" margin="0 auto">
+      {editing ? (
+        <InputGroup size="md">
+          <Input pr="10rem" type="text" placeholder="Promo code" />
+          <InputRightElement width="10rem">
+            <Button
+              h="1.75rem"
+              size="sm"
+              onClick={handleClick}
+              color="ActiveBorder"
+            >
+              Apply
+            </Button>
+            <Button
+              h="1.75rem"
+              size="sm"
+              marginLeft={2}
+              color="red"
+              onClick={() => setEditing(false)}
+            >
+              Cancel
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+      ) : (
+        <Button
+          width="100%"
+          onClick={() => setEditing(true)}
+          backgroundColor="transparent"
+          border="1px solid #ddd"
+          _hover={{ backgroundColor: "transparent" }}
+        >
+          Promo code?
+        </Button>
+      )}
+    </Box>
+  );
+};
+
 export function ShoppingCart({ list, onCountChange, deleteProp, onClose }) {
   const [, setState] = useState(0);
   const refresh = () => setState(Math.random());
@@ -127,6 +174,7 @@ export function ShoppingCart({ list, onCountChange, deleteProp, onClose }) {
   return (
     <>
       {memoList}
+      <Promo />
       <Box position="absolute" left={0} bottom={0} width="100%">
         <Box
           display="flex"
