@@ -42,7 +42,7 @@ const Item = (item) => {
         alignContent="center"
       >
         <span>{item.title}</span>
-        <Button onClick={() => item.deleteProp(item.id)}>
+        <Button onClick={() => item.deleteProp(item.id)} data-test-delete>
           <DeleteIcon color="red" />
         </Button>
       </Text>
@@ -55,25 +55,36 @@ const Item = (item) => {
         <Box>
           <Text fontSize="1xl">Quantity</Text>
           <HStack maxW="200px">
-            <Button {...inc}>+</Button>
-            <Input {...input} textAlign="center" autoFocus={false} />
-            <Button {...dec}>-</Button>
+            <Button {...inc} data-test-inc>
+              +
+            </Button>
+            <Input
+              {...input}
+              textAlign="center"
+              autoFocus={false}
+              data-test-count
+            />
+            <Button {...dec} data-test-dec>
+              -
+            </Button>
           </HStack>
         </Box>
-        <Text fontSize="1xl">{(item.price * value).format()}</Text>
+        <Text fontSize="1xl" data-test-price>
+          {(item.price * value).format()}
+        </Text>
       </Box>
       <Divider />
     </ListItem>
   );
 };
 
-export function ShoppingCart({ list, onCountChange, deleteProp }) {
+export function ShoppingCart({ list, onCountChange, deleteProp, onClose }) {
   const [, setState] = useState(0);
   const refresh = () => setState(Math.random());
 
   const memoList = useMemo(
     () => (
-      <List padding={10}>
+      <List padding={10} data-test-list>
         {list.map((item) => (
           <Item
             key={item.id}
@@ -95,9 +106,21 @@ export function ShoppingCart({ list, onCountChange, deleteProp }) {
 
   if (total === 0) {
     return (
-      <Text>
+      <Box
+        data-test-backStore
+        display="flex"
+        alignItems="center"
+        textAlign="center"
+        width="100%"
+        justifyContent="center"
+        marginTop="40vh"
+        color="blueviolet"
+        cursor="pointer"
+        onClick={onClose}
+      >
         <ArrowBackIcon />
-      </Text>
+        <Text marginLeft={2}>Back to store</Text>
+      </Box>
     );
   }
 
@@ -105,9 +128,15 @@ export function ShoppingCart({ list, onCountChange, deleteProp }) {
     <>
       {memoList}
       <Box position="absolute" left={0} bottom={0} width="100%">
-        <Text fontSize="3xl" lineHeight="60px" textAlign="center">
-          Total: {total.format()}
-        </Text>
+        <Box
+          display="flex"
+          justifyContent="center"
+          fontSize="3xl"
+          lineHeight="60px"
+        >
+          <Text>Total:</Text>
+          <Text data-test-total>{total.format()}</Text>
+        </Box>
       </Box>
     </>
   );

@@ -2,6 +2,7 @@ import {
   Drawer,
   DrawerContent,
   DrawerOverlay,
+  DrawerCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -26,11 +27,13 @@ function App() {
       <ShoppingList data={data} onAdd={onAddToCart} />
       <Drawer size="md" isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent paddingTop={4}>
+          <DrawerCloseButton data-test-close />
           <ShoppingCart
             list={list}
             deleteProp={deleteProp}
             onCountChange={onCountChange}
+            onClose={onClose}
           />
         </DrawerContent>
       </Drawer>

@@ -15,6 +15,7 @@ export function ShoppingList({ data, onAdd }) {
           <Text fontSize="2xl">{item.title}</Text>
           <Text fontSize="1xl">{item.price.format()}</Text>
           <Button
+            data-test-addtocart
             alignSelf="flex-end"
             colorScheme="blue"
             onClick={() => onAdd(item)}
