@@ -29,7 +29,7 @@ describe("shopping cart", () => {
     checkTotal();
   });
 
-  it.only("modify the number of props", () => {
+  it("modify the number of props", () => {
     cy.dataset("addtocart").first().click();
     checkShoppingCartLength(1);
 
