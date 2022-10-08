@@ -1,5 +1,5 @@
 import Bignumber from "bignumber.js";
 
 Number.prototype.format = function () {
-  return "$" + new Bignumber(this).toFormat();
+  return "$" + new Bignumber(this).toFormat(2);
 };

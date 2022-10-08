@@ -14,7 +14,7 @@ function App() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { data } = useShopProps();
-  const { list, addProp } = useShoppingCart();
+  const { list, addProp, deleteProp, onCountChange } = useShoppingCart();
 
   const onAddToCart = (item) => {
     onOpen();
@@ -27,7 +27,11 @@ function App() {
       <Drawer size="md" isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
-          <ShoppingCart list={list} />
+          <ShoppingCart
+            list={list}
+            deleteProp={deleteProp}
+            onCountChange={onCountChange}
+          />
         </DrawerContent>
       </Drawer>
     </>
